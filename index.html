@@ -2,18 +2,37 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The Browser Prompt Encyclopedia</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #FFFFFF; color: #111118; margin: 0; padding: 0; padding-bottom: 80px; }
+        /* Mobile Touch & Scroll Fixes applied directly below */
+        html, body { 
+            background: #FFFFFF; 
+            color: #111118; 
+            margin: 0; 
+            padding: 0; 
+            overflow-y: scroll; /* Forces mobile page to allow natural vertical swipes */
+            -webkit-overflow-scrolling: touch; /* Ensures silky smooth thumb-scrolling on iOS */
+            padding-bottom: 90px; 
+        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         .header { padding: 20px; border-bottom: 1px solid #F4F4F6; text-align: center; }
         .search-container { padding: 20px; text-align: center; }
         .search-bar { width: 90%; max-width: 500px; padding: 15px; border: 1px solid #E4E4E7; border-radius: 8px; font-size: 16px; }
         .card-feed { padding: 20px; max-width: 600px; margin: 0 auto; }
-        .prompt-card { background: #FFFFFF; border: 1px solid #F4F4F6; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); position: relative; }
+        .prompt-card { background: #FFFFFF; border: 1px solid #F4F4F6; border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .badge { background: #E1EFFE; color: #1E429F; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
         .btn-copy { background: #0066FF; color: white; border: none; padding: 12px 15px; border-radius: 6px; font-weight: 600; width: 100%; margin-top: 15px; cursor: pointer; font-size: 14px; }
-        .submission-panel { background: #F8F8FA; border: 2px dashed #0066FF; border-radius: 12px; padding: 20px; margin-bottom: 25px; }
+        
+        /* Voluntary Submission Box with Touch Trap Prevention */
+        .submission-panel { 
+            background: #F8F8FA; 
+            border: 2px dashed #0066FF; 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 25px;
+            touch-action: pan-y; /* Tells the browser to always pass vertical scrolls to the page */
+        }
         .input-field { width: 95%; padding: 10px; margin-top: 8px; margin-bottom: 15px; border: 1px solid #E4E4E7; border-radius: 6px; font-size: 14px; }
         .btn-submit { background: #10B981; color: white; border: none; padding: 12px 15px; border-radius: 6px; font-weight: 600; width: 100%; cursor: pointer; font-size: 14px; }
         .success-message { display: none; background: #DEF7EC; color: #03543F; padding: 15px; border-radius: 8px; text-align: center; font-weight: 600; margin-bottom: 15px; }
@@ -32,6 +51,7 @@
     </div>
 
     <div class="card-feed">
+        <!-- Voluntary Wikipedia-Style Submission Box -->
         <div class="submission-panel">
             <h3 style="margin-top: 0; color: #0066FF;">🏛️ Contribute to the Encyclopedia</h3>
             <p style="color: #4B5563; font-size: 13px; margin-bottom: 15px;">Found an amazing prompt shortcut on the web? Share it below! Our central AI engine will automatically format, polish, and add it to our public master reference database.</p>
@@ -47,7 +67,9 @@
             <button class="btn-submit" onclick="handleUserSubmission()">Submit Voluntary Entry</button>
         </div>
 
+        <!-- Master List Container -->
         <div id="promptList">
+            <!-- Entry 001 -->
             <div class="prompt-card" data-title="the open-loop curiosity driver">
                 <span class="badge">Social Media / Claude</span>
                 <h3 style="margin: 10px 0 5px 0;">The Open-Loop Curiosity Driver</h3>
@@ -56,8 +78,10 @@
                 <button class="btn-copy" onclick="copyText('p1')">Copy Tool Prompt</button>
             </div>
             
+            <!-- Entry 002 -->
             <div class="prompt-card" data-title="the contrarian truth disrupter">
                 <span class="badge">Social Media / ChatGPT</span>
+                <h3 style="margin: 10px 0 5px 0;">The Contrarian Truth Disrupter</h3>
                 <h3 style="margin: 10px 0 5px 0;">The Contrarian Truth Disrupter</h3>
                 <p style="color: #71717A; font-size: 14px; margin-bottom: 15px;">Challenges boring, mainstream industry beliefs to build massive competitive authority.</p>
                 <textarea id="p2" style="width:95%; height:60px; padding:8px; border-radius:6px; border:1px solid #E4E4E7; background:#F8F8FA; resize:none;" readonly>Act as a disruptive brand strategist. Identify 3 common, boring pieces of advice repeated in [Insert Industry] and write 5 contrarian hooks...</textarea>
@@ -93,6 +117,7 @@
             }
         }
 
+        // Saved locally right inside your user's smartphone data vaults
         function handleUserSubmission() {
             var raw = document.getElementById('rawPrompt').value;
             var meaning = document.getElementById('promptMeaning').value;
